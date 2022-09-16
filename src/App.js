@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Table } from "antd";
 import './App.css';
 // import the client 
 import {getAllStudents} from './client'; 
@@ -28,19 +29,40 @@ class  App extends Component{
   const {students} = this.state;
   //check if students exists before rendering it 
   if (students && students.length){ 
-    // if exists, map it to the DOM
-   return students.map((student, index)=>{
-    // every react requires key
-      return (<div key={index}>
-        <h2>{student.studentId}</h2>
-        <p>{student.firstName}</p>
-        <p>{student.lastName}</p>
-        <p>{student.gender}</p>
-        <p>{student.email}</p>
-      </div>
-    )})
+    // define an array of objects
+    const objects = [
+      {
+      title:'Student Id', 
+      dataIndex:'studentId',
+      key:'studentId'
+      },
+      {
+        title:'First Name', 
+        dataIndex:'firstName',
+        key:'firstName'
+      },
+      {
+        title:'Last Name', 
+        dataIndex:'lastName',
+        key:'lastName'
+      },
+      {
+        title:'Email', 
+        dataIndex:'email',
+        key:'email'
+      }, 
+      {
+        title:'Gender', 
+        dataIndex:'gender',
+        key:'gender'
+      }
+    ];
+
+    return (<Table dataSource={students} 
+            columns={objects} rowKey='studentId'/>);
+   
   }
- 
+
   return <h1>Nothing found</h1>
  }
    
